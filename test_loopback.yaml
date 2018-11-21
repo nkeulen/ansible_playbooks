@@ -1,0 +1,21 @@
+---
+- hosts: cpe2
+
+  gather_facts: false
+  connection: local
+
+  tasks:
+   - name: test loopback configuration show diff
+     ios_config:
+       diff_against: intended       
+       intended_config: "{{ lookup('file', 'lo_test.cfg') }}"
+
+   - name: Do you want to commit these changes?
+     pause:
+        prompt:  Type "y"  or "n" 
+     register: commit_choice
+
+   - name: comitting changes
+     ios_config:
+      src: "lo_test.cfg"
+     when: commit_choice["user_input"] == "y"
