@@ -1,0 +1,11 @@
+---
+- hosts: "{{ hosts }}"
+  gather_facts: false
+  connection: local
+
+  tasks:
+   - name: configure login banner
+     ios_banner:
+      banner: login
+      text: "{{ lookup('file', 'banner.cfg') }}"
+      #state: present
