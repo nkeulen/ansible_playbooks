@@ -8,4 +8,3 @@
      ios_banner:
       banner: login
       text: "{{ lookup('file', 'banner.cfg') }}"
-      #state: present
